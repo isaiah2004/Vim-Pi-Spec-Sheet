@@ -40,5 +40,47 @@ class VimPi(App):
 
 Implement the screen as
 ```py
+class FileExplorerAndEditorScreen(Screen):
+    BINDINGS = [
+        .....
+        ("ctrl+s", "save_current_file()", "Save File"),
+        .....
+    ]
+    def __init__(self,....):
+        .....
+    # The composition of the Editing screen
+    def compose(self) -> ComposeResult:
+        ....
+        with Horizontal():
+            with VerticalScroll(id="left-pane"):
+                yield FileExplorer(path=self.CURRENT_DIR,id='FileExplorerPanel')
+            with Container(id="right-pane"):
+                TextViewerObject = TextViewer(id="editor", disabled=True).code_editor(id="editor")
+                TextViewerObject.load_text("Open file to edit")
+                yield TextViewerObject
+```
 
+You can implement the save file as something like:
+```py
+def action_save_current_file(self):
+
+        try:
+
+            file_path = self.query_one(FileExplorer).SelectedFile
+
+            if file_path:
+
+                data = self.query_one("#editor", TextViewer).text
+
+                if os.path.isfile(file_path):
+
+                    # File exists, write data to the file
+
+                    with open(file_path, "w") as f:
+
+                        f.write(data)
+
+                    self.isFileOpen=True
+
+                    self.notify("File Saved Successfully.")
 ```
