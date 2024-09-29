@@ -1,10 +1,12 @@
-## Slight hint.
+## Slight hint:
 
 Use the properties of TextArea in textual
 
-## Moderate Hint.
+## Moderate Hint:
+
 Use the property of Selected_text attribute of TextArea for copy.
 Use the Replace method of TextArea for paste.
+
 ## Giveaway Hint:
 
 Usse TextArea.selected_text attribute to get the selected data
